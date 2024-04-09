@@ -2,6 +2,8 @@ import React from 'react';
 import style from '../styles/modules/button.module.scss';
 import { getClasses } from '../utils/getClasses';
 
+// variant = primary or secondary
+// type = submit or button
 function Button({ children, type, variant }) {
   return (
     <button
