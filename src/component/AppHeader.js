@@ -4,7 +4,7 @@ import styles from '../styles/modules/app.module.scss';
 import TodoModal from './TodoModal';
 
 function AppHeader() {
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
 
   return (
     <div>

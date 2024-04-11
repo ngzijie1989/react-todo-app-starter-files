@@ -1,16 +1,34 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from 'react-redux';
+import { v4 as uuid } from 'uuid';
+import toast from 'react-hot-toast';
 import styles from '../styles/modules/modal.module.scss';
 import Button from './Button';
+import { addTodo } from '../slices/todoSlice';
 
 function TodoModal({ modal, setModal }) {
   const [title, setTitle] = useState('');
   const [status, setStatus] = useState('Incomplete');
 
+  const dispatch = useDispatch();
+  const toastSuccess = () => toast.success('Task has been added successfully');
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ title, status });
+    if (title && status) {
+      dispatch(
+        addTodo({
+          id: uuid(),
+          title,
+          status,
+          time: new Date().toLocaleString(),
+        })
+      );
+    }
+    toastSuccess();
+    setModal(false);
   };
 
   return (
