@@ -42,8 +42,9 @@ function TodoModal({ type, modal, setModal, todo }) {
       toastSuccess();
       setModal(false);
     } else if (type === 'Edit') {
-      console.log('hello');
-      dispatch(editTodo({ todo, title, status }));
+      const { id } = todo;
+      console.log(id);
+      dispatch(editTodo({ todo, id, title, status }));
       toastEdit();
       setModal(false);
     }
