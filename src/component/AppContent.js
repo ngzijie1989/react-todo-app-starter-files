@@ -7,14 +7,7 @@ function AppContent() {
   return (
     <div>
       {todoList.length !== 0
-        ? todoList.map((task) => (
-            <TodoItem
-              key={task.id}
-              title={task.title}
-              status={task.status}
-              time={task.time}
-            />
-          ))
+        ? todoList.map((task) => <TodoItem key={task.id} todo={task} />)
         : 'notodoList'}
     </div>
   );

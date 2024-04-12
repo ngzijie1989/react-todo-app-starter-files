@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
@@ -6,18 +6,31 @@ import { v4 as uuid } from 'uuid';
 import toast from 'react-hot-toast';
 import styles from '../styles/modules/modal.module.scss';
 import Button from './Button';
-import { addTodo } from '../slices/todoSlice';
+import { addTodo, editTodo } from '../slices/todoSlice';
 
-function TodoModal({ modal, setModal }) {
+function TodoModal({ type, modal, setModal, todo }) {
   const [title, setTitle] = useState('');
   const [status, setStatus] = useState('Incomplete');
 
   const dispatch = useDispatch();
   const toastSuccess = () => toast.success('Task has been added successfully');
+  const toastEdit = () => toast.success('Task has been edited successfully');
+
+  useEffect(() => {
+    if (type === 'Edit') {
+      setTitle(todo.title);
+      setStatus(todo.status);
+    } else {
+      setTitle('');
+      setStatus('Incomplete');
+    }
+  }, [type, todo, modal]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (title && status) {
+    if (title === '') {
+      toast.error('Please type in a title');
+    } else if (type === 'Add') {
       dispatch(
         addTodo({
           id: uuid(),
@@ -26,9 +39,14 @@ function TodoModal({ modal, setModal }) {
           time: new Date().toLocaleString(),
         })
       );
+      toastSuccess();
+      setModal(false);
+    } else if (type === 'Edit') {
+      console.log('hello');
+      dispatch(editTodo({ todo, title, status }));
+      toastEdit();
+      setModal(false);
     }
-    toastSuccess();
-    setModal(false);
   };
 
   return (
@@ -45,7 +63,9 @@ function TodoModal({ modal, setModal }) {
             <FontAwesomeIcon icon={faTimes} />
           </div>
           <form className={styles.form}>
-            <h1 className={styles.formTitle}>Add Task</h1>
+            <h1 className={styles.formTitle}>
+              {type === 'Add' ? 'Add Task' : 'Edit Task'}
+            </h1>
             <label htmlFor="title">
               Title
               <input
@@ -75,7 +95,7 @@ function TodoModal({ modal, setModal }) {
                 role="button"
               >
                 <Button type="submit" variant="primary">
-                  Add Task
+                  {type === 'Add' ? 'Add Task' : 'Edit Task'}
                 </Button>
               </div>
 
