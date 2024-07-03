@@ -73,7 +73,7 @@ function TodoItem({ todo }) {
             tabIndex={0}
             role="button"
           >
-            <FontAwesomeIcon icon={faXmark} />
+            <FontAwesomeIcon icon={faXmark} aria-label="delete" />
           </div>
           <div
             className={styles.icon}
@@ -82,7 +82,7 @@ function TodoItem({ todo }) {
             tabIndex={0}
             role="button"
           >
-            <FontAwesomeIcon icon={faPenToSquare} />
+            <FontAwesomeIcon icon={faPenToSquare} aria-label="Edit" />
           </div>
         </div>
       </div>

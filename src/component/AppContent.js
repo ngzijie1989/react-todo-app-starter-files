@@ -16,7 +16,7 @@ function AppContent() {
     <div>
       {sortedTodoList.length !== 0
         ? sortedTodoList.map((task) => <TodoItem key={task.id} todo={task} />)
-        : 'notodoList'}
+        : ''}
     </div>
   );
 }

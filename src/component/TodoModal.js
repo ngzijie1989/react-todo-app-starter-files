@@ -61,7 +61,7 @@ function TodoModal({ type, modal, setModal, todo }) {
             tabIndex={0}
             role="button"
           >
-            <FontAwesomeIcon icon={faTimes} />
+            <FontAwesomeIcon icon={faTimes} aria-label="modal" />
           </div>
           <form className={styles.form}>
             <h1 className={styles.formTitle}>
